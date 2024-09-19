@@ -1,6 +1,6 @@
 let transactionTimeout;
 
-// 페이지 로드 시 저장된 값을 불러오는 함수
+// Load stored values from Chrome storage when the popup is opened
 window.onload = function() {
   chrome.storage.local.get(['network', 'contractAddress', 'hexData', 'gasPrice', 'scheduledDate', 'scheduledTime', 'privateKey'], (data) => {
     if (data.network) document.getElementById('network').value = data.network;
@@ -13,7 +13,7 @@ window.onload = function() {
   });
 };
 
-// Save 버튼 클릭 시 입력 값을 저장하는 함수
+// Save button click event to store input values
 document.getElementById('saveTransaction').addEventListener('click', () => {
   const network = document.getElementById('network').value;
   const contractAddress = document.getElementById('contractAddress').value;
@@ -28,7 +28,6 @@ document.getElementById('saveTransaction').addEventListener('click', () => {
     return;
   }
 
-  // 입력 값을 저장
   chrome.storage.local.set({
     network, contractAddress, hexData, gasPrice, scheduledDate, scheduledTime, privateKey
   }, () => {
@@ -36,9 +35,7 @@ document.getElementById('saveTransaction').addEventListener('click', () => {
   });
 });
 
-// Send Transaction 버튼 클릭 시 트랜잭션 실행
-// Send Transaction 버튼 클릭 시 트랜잭션 실행 부분
-// Send Transaction 버튼 클릭 시 트랜잭션 실행
+
 document.getElementById('sendTransaction').addEventListener('click', async () => {
   chrome.storage.local.get(['network', 'contractAddress', 'hexData', 'gasPrice', 'scheduledDate', 'scheduledTime', 'privateKey'], async (data) => {
     const scheduledDateTime = new Date(`${data.scheduledDate}T${data.scheduledTime}`).getTime();
@@ -46,15 +43,12 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
     const delay = scheduledDateTime - now;
 
     if (delay > 0) {
-      // 남은 시간 표시 및 트랜잭션 진행 상태 팝업 창 열기
       const statusPopup = window.open('transaction-status.html', 'Transaction Status', 'width=400,height=300');
 
-      // 스케줄된 시간을 상태 창에 전송
       statusPopup.onload = () => {
         statusPopup.postMessage({ action: 'waiting', scheduledTime: scheduledDateTime }, '*');
       };
 
-      // 트랜잭션 타이머 설정
       transactionTimeout = setTimeout(async () => {
         const rpcUrl = selectRPC(data.network);
         const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
@@ -69,17 +63,14 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
         };
 
         try {
-          // 트랜잭션 전송 중 상태 업데이트
           statusPopup.postMessage({ action: 'sendingTransaction' }, '*');
 
           const signedTx = await wallet.signTransaction(transaction);
           const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
-          // 트랜잭션 완료 상태를 팝업 창에 전달
           const scanUrl = getScanUrl(data.network, receipt.transactionHash);
           statusPopup.postMessage({ action: 'transactionComplete', receipt, scanUrl }, '*');
         } catch (error) {
-          // 트랜잭션 오류 상태를 팝업 창에 전달
           statusPopup.postMessage({ action: 'transactionError', error: error.message }, '*');
         }
       }, delay);
@@ -91,7 +82,6 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
 
 
 
-// Cancel 버튼 클릭 시 타이머 취소
 document.getElementById('cancelTransaction').addEventListener('click', () => {
   if (transactionTimeout) {
     clearTimeout(transactionTimeout);
@@ -102,7 +92,6 @@ document.getElementById('cancelTransaction').addEventListener('click', () => {
   }
 });
 
-// 네트워크 선택 함수
 function selectRPC(networkName) {
   const networks = {
     mainnet: 'https://rpc.flashbots.net/fast',
@@ -115,7 +104,6 @@ function selectRPC(networkName) {
   return networks[networkName] || networks['mainnet'];
 }
 
-// Etherscan, Polygonscan 등 스캔 사이트 링크 생성 함수
 function getScanUrl(network, txHash) {
   const scanSites = {
     mainnet: `https://etherscan.io/tx/${txHash}`,

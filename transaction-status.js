@@ -4,11 +4,11 @@ window.addEventListener('message', (event) => {
   if (event.data.action === 'waiting') {
     const countdownElem = document.getElementById('countdown');
     const statusElem = document.getElementById('status');
-    const scheduledTime = new Date(event.data.scheduledTime); // 스케줄된 시간을 Date 객체로 변환
+    const scheduledTime = new Date(event.data.scheduledTime);
 
     countdownInterval = setInterval(() => {
-      const now = new Date();  // 현재 시간
-      const timeRemaining = (scheduledTime - now) / 1000;  // 남은 시간 (초)
+      const now = new Date();  
+      const timeRemaining = (scheduledTime - now) / 1000;  
 
       if (timeRemaining <= 0) {
         clearInterval(countdownInterval);
@@ -17,7 +17,7 @@ window.addEventListener('message', (event) => {
         countdownElem.innerText = `Time Remaining: ${timeRemaining.toFixed(1)} seconds`;
         statusElem.innerText = `Current Time: ${now.toLocaleTimeString()} | Scheduled Time: ${scheduledTime.toLocaleTimeString()}`;
       }
-    }, 100);  // 0.1초마다 업데이트
+    }, 100);  
   } else if (event.data.action === 'sendingTransaction') {
     document.getElementById('status').innerText = 'Sending transaction...';
   } else if (event.data.action === 'transactionComplete') {
@@ -34,6 +34,6 @@ window.addEventListener('message', (event) => {
 
 document.getElementById('cancelTransaction').addEventListener('click', () => {
   chrome.runtime.sendMessage({ action: 'cancelTransaction' });
-  clearInterval(countdownInterval);  // 카운트다운 중지
-  window.close();  // 팝업 창 닫기
+  clearInterval(countdownInterval);  
+  window.close();  
 });
