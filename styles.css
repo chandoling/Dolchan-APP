@@ -2,26 +2,26 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: #f0f0f0;
-    width: 100%;
-    box-sizing: border-box;
+    text-align: center;
 }
 
 h1 {
-    font-size: 1.5em;
-    margin-bottom: 15px;
+    font-size: 2em;
 }
 
-div {
-    margin-bottom: 10px;
+p {
+    font-size: 1.2em;
 }
 
 button {
+    display: block;
+    margin: 15px auto;
+    padding: 10px 20px;
+    font-size: 1.2em;
     background-color: #4CAF50;
     color: white;
-    padding: 10px;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
 }
 
 button:hover {
