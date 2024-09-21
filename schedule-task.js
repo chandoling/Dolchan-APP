@@ -169,6 +169,10 @@ document.getElementById('cancelTransaction').addEventListener('click', () => {
   }
 });
 
+document.getElementById('mainPageButton').addEventListener('click', () => {
+  window.location.href = "index.html"; 
+});
+
 function selectRPC(networkName) {
   const networks = {
     sepolia: 'https://1rpc.io/sepolia',
@@ -192,3 +196,4 @@ function getScanUrl(network, txHash) {
   };
   return scanSites[network] || scanSites['mainnet'];
 }
+

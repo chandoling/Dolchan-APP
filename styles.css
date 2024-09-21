@@ -89,11 +89,24 @@ a:hover {
 
 .footer {
     background-color: #f0f0f0;
-    padding: 20px 0; 
+    padding: 20px 0;
+    margin-top: 20px; /* 위쪽에 20px 마진 추가 */
 }
 
+
 .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 300px;
     margin: 0 auto; 
-    text-align: center; 
+}
+
+.footer-left, .footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.footer-left span, .footer-right span {
+    margin-left: 5px;
 }

@@ -28,7 +28,7 @@ window.addEventListener('message', (event) => {
     cancelButton.style.display = 'none';  // Hide the cancel button
   } else if (event.data.action === 'transactionComplete') {
     console.log("Transaction complete event received: ", event.data);  // Log completion for debugging
-    statusElem.innerText = `Transaction complete! TX Hash: ${event.data.receipt.transactionHash}`;
+    statusElem.innerText = `Transaction complete! \n\n TX Hash: ${event.data.receipt.transactionHash}`;
 
     // Create the "View on Scan Site" link
     const link = document.createElement('a');
