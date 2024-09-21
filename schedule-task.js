@@ -1,5 +1,4 @@
 let transactionTimeout;
-let privateKey;  // Declare global privateKey variable
 
 // Load stored values from Chrome storage when the popup is opened
 window.onload = function() {
@@ -65,8 +64,9 @@ document.getElementById('saveTransaction').addEventListener('click', () => {
   });
 });
 
+// Send Transaction button click event
 document.getElementById('sendTransaction').addEventListener('click', async () => {
-  privateKey = document.getElementById('privateKey').value; // Get privateKey when sending transaction
+  const privateKey = document.getElementById('privateKey').value;  // Get privateKey just before sending
 
   if (!privateKey) {
     alert('Please enter your private key.');
@@ -85,6 +85,7 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
         statusPopup.postMessage({ action: 'waiting', scheduledTime: scheduledDateTime }, '*');
       };
 
+      // Adjust the logic to get the privateKey again when the transaction is being sent
       transactionTimeout = setTimeout(async () => {
         const updatedPrivateKey = document.getElementById('privateKey').value;  // Get privateKey again before transaction
 
@@ -112,10 +113,7 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
           const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
 
           const scanUrl = getScanUrl(data.network, receipt.transactionHash);
-          
-          // Ensure transactionComplete message is posted after transaction finishes
           statusPopup.postMessage({ action: 'transactionComplete', receipt, scanUrl }, '*');
-          
         } catch (error) {
           statusPopup.postMessage({ action: 'transactionError', error: error.message }, '*');
         }
@@ -125,7 +123,6 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
     }
   });
 });
-
 
 document.getElementById('cancelTransaction').addEventListener('click', () => {
   if (transactionTimeout) {
@@ -139,14 +136,14 @@ document.getElementById('cancelTransaction').addEventListener('click', () => {
 
 function selectRPC(networkName) {
   const networks = {
+    sepolia: 'https://1rpc.io/sepolia',
     mainnet: 'https://rpc.flashbots.net/fast',
     arbitrum: 'https://arb1.arbitrum.io/rpc',
     polygon: 'https://polygon-rpc.com',
     optimism: 'https://mainnet.optimism.io',
     bsc: 'https://bsc-dataseed.binance.org/',
-    sepolia: 'https://1rpc.io/sepolia'
   };
-  return networks[networkName] || networks['mainnet'];
+  return networks[networkName] || networks['sepolia'];
 }
 
 function getScanUrl(network, txHash) {

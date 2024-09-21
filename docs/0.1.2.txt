@@ -1,0 +1,10 @@
+-----
+
+ver. 0.1.2 tba
+
+default network - sepolia로 바꿈 
+; 내가 헷갈려서
+
+스케쥴 trnasaction할 때 hex data말고
+raw data 이더리움 몇 개 보내기 
+이런 식으로 더욱 더 간단한 테스트를 할 수 있게 만들기.
