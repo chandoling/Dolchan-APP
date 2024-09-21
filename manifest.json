@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Scheduled Transaction Sender",
-    "version": "0.1.0",
-    "permissions": ["storage", "alarms", "windows"],
+    "version": "0.1.1",
+    "permissions": ["storage", "windows"],
     "background": {
       "service_worker": "background.js"
     },

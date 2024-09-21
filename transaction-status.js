@@ -1,9 +1,14 @@
 let countdownInterval;
 
 window.addEventListener('message', (event) => {
+  console.log("Received message: ", event.data);  // Log message for debugging
+
+  const statusElem = document.getElementById('status');
+  const countdownElem = document.getElementById('countdown');
+  const timeRemainingElem = document.getElementById('timeRemaining');
+  const cancelButton = document.getElementById('cancelTransaction');
+
   if (event.data.action === 'waiting') {
-    const countdownElem = document.getElementById('countdown');
-    const statusElem = document.getElementById('status');
     const scheduledTime = new Date(event.data.scheduledTime);
 
     countdownInterval = setInterval(() => {
@@ -19,16 +24,30 @@ window.addEventListener('message', (event) => {
       }
     }, 100);  
   } else if (event.data.action === 'sendingTransaction') {
-    document.getElementById('status').innerText = 'Sending transaction...';
+    statusElem.innerText = 'Sending transaction...';
+    cancelButton.style.display = 'none';  // Hide the cancel button
   } else if (event.data.action === 'transactionComplete') {
-    document.getElementById('status').innerText = `Transaction complete! TX Hash: ${event.data.receipt.transactionHash}`;
+    console.log("Transaction complete event received: ", event.data);  // Log completion for debugging
+    statusElem.innerText = `Transaction complete! TX Hash: ${event.data.receipt.transactionHash}`;
+
+    // Create the "View on Scan Site" link
     const link = document.createElement('a');
     link.href = event.data.scanUrl;
     link.textContent = 'View on Scan Site';
     link.target = '_blank';
-    document.body.appendChild(link);
+
+    // Create a container for placing the link above the cancel button
+    const linkContainer = document.createElement('div');
+    linkContainer.appendChild(link);
+
+    // Insert the linkContainer above the Cancel button
+    cancelButton.parentNode.insertBefore(linkContainer, cancelButton);
+
+    // Clear the "Transaction sending now!" message after showing the TX hash
+    countdownElem.innerText = '';  // Clear countdown message
+    timeRemainingElem.style.display = 'none';  // Remove "Time remaining" section
   } else if (event.data.action === 'transactionError') {
-    document.getElementById('status').innerText = `Transaction failed: ${event.data.error}`;
+    statusElem.innerText = `Transaction failed: ${event.data.error}`;
   }
 });
 

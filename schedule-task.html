@@ -9,54 +9,57 @@
 <body>
     <h1>Schedule Transaction</h1>
 
-    <div>
-        <label for="network">Network:</label>
-        <select id="network">
-            <option value="mainnet">Ethereum Mainnet</option>
-            <option value="arbitrum">Arbitrum</option>
-            <option value="polygon">Polygon</option>
-            <option value="optimism">Optimism</option>
-            <option value="bsc">BSC</option>
-            <option value="sepolia">Sepolia</option>
-        </select>
+    <div class="form-container">
+        <div class="form-group">
+            <label for="network">Network:</label>
+            <select id="network">
+                <option value="mainnet">Ethereum Mainnet</option>
+                <option value="arbitrum">Arbitrum</option>
+                <option value="polygon">Polygon</option>
+                <option value="optimism">Optimism</option>
+                <option value="bsc">BSC</option>
+                <option value="sepolia">Sepolia</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="contractAddress">Contract Address:</label>
+            <input type="text" id="contractAddress" placeholder="0x..." />
+        </div>
+
+        <div class="form-group">
+            <label for="hexData">Hex Data:</label>
+            <input type="text" id="hexData" placeholder="0x..." />
+        </div>
+
+        <div class="form-group">
+            <label for="gasPrice">Gas Price (Gwei):</label>
+            <input type="number" id="gasPrice" />
+        </div>
+
+        <div class="form-group">
+            <label for="scheduledDate">Scheduled Date:</label>
+            <input type="date" id="scheduledDate" />
+        </div>
+
+        <div class="form-group">
+            <label for="scheduledTime">Scheduled Time:</label>
+            <input type="time" id="scheduledTime" step="1" /> 
+        </div>
+        
+
+        <div class="form-group">
+            <label for="privateKey">Private Key:</label>
+            <input type="password" id="privateKey" />
+        </div>
+
+        <button id="saveTransaction">Save</button>
+        <button id="sendTransaction">Send Transaction</button>
+        <button id="cancelTransaction">Cancel Transaction</button>
     </div>
 
-    <div>
-        <label for="contractAddress">Contract Address:</label>
-        <input type="text" id="contractAddress" placeholder="0x..." />
-    </div>
-
-    <div>
-        <label for="hexData">Hex Data:</label>
-        <input type="text" id="hexData" placeholder="0x..." />
-    </div>
-
-    <div>
-        <label for="gasPrice">Gas Price (Gwei):</label>
-        <input type="number" id="gasPrice" />
-    </div>
-
-    <div>
-        <label for="scheduledDate">Scheduled Date:</label>
-        <input type="date" id="scheduledDate" />
-    </div>
-
-    <div>
-        <label for="scheduledTime">Scheduled Time:</label>
-        <input type="time" id="scheduledTime" />
-    </div>
-
-    <div>
-        <label for="privateKey">Private Key:</label>
-        <input type="password" id="privateKey" />
-    </div>
-
-    <button id="saveTransaction">Save</button>
-    <button id="sendTransaction">Send Transaction</button>
-    <button id="cancelTransaction">Cancel Transaction</button>
-
-    <p>Donation ☕: 0xb7E382763E6c1C9bC9bfDA51232AB8646Ad65cA9</p>
-    <p>Feel free to reach out through <a href="https://t.me/dolchanchain" target="_blank">Telegram</a>.</p>
+    <small>Donation ☕: 0xb7E382763E6c1C9bC9bfDA51232AB8646Ad65cA9</small>
+    <small>Feel free to reach out through <a href="https://t.me/dolchanchain" target="_blank">Telegram</a>.</small>
 
     <script src="web3.min.js"></script>
     <script src="schedule-task.js"></script>
