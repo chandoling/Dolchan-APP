@@ -32,9 +32,13 @@ h1 {
 }
 
 label {
+    display: block;
     font-size: 1.2em;
     margin-bottom: 5px;
-}
+    line-height: 1.5;
+    text-align: left; /* Left-align the label */
+  }
+  
 
 input, select {
     font-size: 1.1em;

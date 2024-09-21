@@ -16,6 +16,7 @@ window.onload = function() {
 document.getElementById('network').addEventListener('change', () => {
   const network = document.getElementById('network').value;
   chrome.storage.local.set({ network });
+  getRecommendedGasPrice(); // Update recommended gas price when network changes
 });
 
 document.getElementById('contractAddress').addEventListener('change', () => {
@@ -42,6 +43,33 @@ document.getElementById('scheduledTime').addEventListener('change', () => {
   const scheduledTime = document.getElementById('scheduledTime').value;
   chrome.storage.local.set({ scheduledTime });
 });
+
+// Function to calculate the recommended gas price
+async function getRecommendedGasPrice() {
+  const selectedNetwork = document.getElementById('network').value;
+  const rpcUrl = selectRPC(selectedNetwork);
+  
+  // Initialize Web3 with the correct network's RPC
+  const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
+  
+  try {
+    // Fetch the current gas price from the network
+    const gasPrice = await web3.eth.getGasPrice();
+    
+    // Convert from Wei to Gwei and apply a 50% increase
+    const gasPriceInGwei = web3.utils.fromWei(gasPrice, 'gwei');
+    const recommendedPrice = (parseFloat(gasPriceInGwei) * 1.5).toFixed(2); // 50% increase
+
+    // Display the recommended gas price
+    document.getElementById('recommendedGas').textContent = `${recommendedPrice} Gwei`;
+  } catch (error) {
+    console.error('Error fetching gas price:', error);
+    document.getElementById('recommendedGas').textContent = 'Error';
+  }
+}
+
+// Update recommended gas price
+setInterval(getRecommendedGasPrice, 5000);
 
 // Save button click event (No privateKey here)
 document.getElementById('saveTransaction').addEventListener('click', () => {
@@ -87,37 +115,44 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
 
       // Adjust the logic to get the privateKey again when the transaction is being sent
       transactionTimeout = setTimeout(async () => {
-        const updatedPrivateKey = document.getElementById('privateKey').value;  // Get privateKey again before transaction
-
+        const updatedPrivateKey = document.getElementById('privateKey').value;
+      
         if (!updatedPrivateKey) {
           alert('Private key is missing. Please re-enter.');
           return;
         }
-
+      
         const rpcUrl = selectRPC(data.network);
         const web3 = new Web3(new Web3.providers.HttpProvider(rpcUrl));
-        const wallet = web3.eth.accounts.privateKeyToAccount(updatedPrivateKey);  // Use saved privateKey
-
-        const transaction = {
-          to: data.contractAddress,
-          data: data.hexData,
-          gasPrice: web3.utils.toWei(data.gasPrice, 'gwei'),
-          gasLimit: 500000,
-          from: wallet.address,
-        };
-
+        const wallet = web3.eth.accounts.privateKeyToAccount(updatedPrivateKey);
+      
         try {
+          // Fetch the latest nonce right before the transaction
+          const nonce = await web3.eth.getTransactionCount(wallet.address, 'latest');
+      
+          const transaction = {
+            to: data.contractAddress,
+            data: data.hexData,
+            gasPrice: web3.utils.toWei(data.gasPrice, 'gwei'),
+            gasLimit: 500000,
+            from: wallet.address,
+            nonce: nonce, 
+          };
+      
           statusPopup.postMessage({ action: 'sendingTransaction' }, '*');
-
+      
           const signedTx = await wallet.signTransaction(transaction);
           const receipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
-
+      
           const scanUrl = getScanUrl(data.network, receipt.transactionHash);
+          
           statusPopup.postMessage({ action: 'transactionComplete', receipt, scanUrl }, '*');
+          
         } catch (error) {
           statusPopup.postMessage({ action: 'transactionError', error: error.message }, '*');
         }
       }, delay);
+      
     } else {
       alert('The specified time is in the past. Please set a valid future time.');
     }
