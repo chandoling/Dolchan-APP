@@ -11,6 +11,13 @@ h1 {
     margin-bottom: 20px;
 }
 
+
+.intro-text {
+    font-size: 1.5em; 
+    margin-bottom: 20px; 
+}
+
+
 .form-container {
     display: flex;
     flex-direction: column;
@@ -33,7 +40,7 @@ h1 {
 
 label {
     display: block;
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin-bottom: 5px;
     line-height: 1.5;
     text-align: left; /* Left-align the label */
@@ -41,7 +48,7 @@ label {
   
 
 input, select {
-    font-size: 1.1em;
+    font-size: 1.3em;
     padding: 8px;
     width: 100%;
     box-sizing: border-box;
@@ -52,7 +59,7 @@ button {
     width: 100%;
     margin-top: 15px;
     padding: 10px 20px;
-    font-size: 1.2em;
+    font-size: 1.5em;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -70,6 +77,7 @@ small {
     font-size: 0.9em;
 }
 
+
 a {
     color: #269eda;
     text-decoration: none;
@@ -77,4 +85,15 @@ a {
 
 a:hover {
     text-decoration: underline;
+}
+
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px 0; 
+}
+
+.footer-content {
+    width: 300px;
+    margin: 0 auto; 
+    text-align: center; 
 }
