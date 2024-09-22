@@ -3,19 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Selector</title>
+    <title>Transaction Status</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="index.js"></script>
 </head>
 <body>
-    <h1>Hi✋</h1>
-    <p class="intro-text">What would you like to do?🥸</p>
-
-    <button id="repeatTask">Repeat Transaction</button>
-
-    <button id="scheduledTransfer">Scheduled Transaction</button>
-
-    <button id="hackingRescue">Hacking Recovery</button>
+    <h1>Transaction Status</h1>
+    <div id="status">Waiting for transaction...</div>
+    <div id="timeRemaining">Time remaining: <span id="countdown"></span></div>
+    <button id="cancelTransaction">Cancel Transaction</button>
 
     <div class="footer">
         <div class="footer-content">
@@ -29,6 +24,8 @@
                <a href="https://t.me/dolchanchain" target="_blank">Contact</a>
             </div>
         </div>
-    </div>
+    </div>  
     
+    <script src="schedule-transaction-status.js"></script>
+</body>
 </html>

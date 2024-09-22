@@ -2,10 +2,10 @@ let transactionTimeout;
 
 // Load stored values from Chrome storage when the popup is opened
 window.onload = function() {
-  chrome.storage.local.get(['network', 'contractAddress', 'hexData', 'gasPrice', 'scheduledDate', 'scheduledTime'], (data) => {
+  chrome.storage.local.get(['network', 'receivingAddress', 'amount', 'gasPrice', 'scheduledDate', 'scheduledTime'], (data) => {
     if (data.network) document.getElementById('network').value = data.network;
-    if (data.contractAddress) document.getElementById('contractAddress').value = data.contractAddress;
-    if (data.hexData) document.getElementById('hexData').value = data.hexData;
+    if (data.receivingAddress) document.getElementById('receivingAddress').value = data.receivingAddress;
+    if (data.amount) document.getElementById('amount').value = data.amount;
     if (data.gasPrice) document.getElementById('gasPrice').value = data.gasPrice;
     if (data.scheduledDate) document.getElementById('scheduledDate').value = data.scheduledDate;
     if (data.scheduledTime) document.getElementById('scheduledTime').value = data.scheduledTime;
@@ -19,14 +19,14 @@ document.getElementById('network').addEventListener('change', () => {
   getRecommendedGasPrice(); // Update recommended gas price when network changes
 });
 
-document.getElementById('contractAddress').addEventListener('change', () => {
-  const contractAddress = document.getElementById('contractAddress').value;
-  chrome.storage.local.set({ contractAddress });
+document.getElementById('receivingAddress').addEventListener('change', () => {
+  const receivingAddress = document.getElementById('receivingAddress').value;
+  chrome.storage.local.set({ receivingAddress });
 });
 
-document.getElementById('hexData').addEventListener('change', () => {
-  const hexData = document.getElementById('hexData').value;
-  chrome.storage.local.set({ hexData });
+document.getElementById('amount').addEventListener('change', () => {
+  const amount = document.getElementById('amount').value;
+  chrome.storage.local.set({ amount });
 });
 
 document.getElementById('gasPrice').addEventListener('change', () => {
@@ -74,19 +74,19 @@ setInterval(getRecommendedGasPrice, 5000);
 // Save button click event (No privateKey here)
 document.getElementById('saveTransaction').addEventListener('click', () => {
   const network = document.getElementById('network').value;
-  const contractAddress = document.getElementById('contractAddress').value;
-  const hexData = document.getElementById('hexData').value;
+  const receivingAddress = document.getElementById('receivingAddress').value;
+  const amount = document.getElementById('amount').value;
   const gasPrice = document.getElementById('gasPrice').value;
   const scheduledDate = document.getElementById('scheduledDate').value;
   const scheduledTime = document.getElementById('scheduledTime').value;
 
-  if (!network || !contractAddress || !hexData || !gasPrice || !scheduledDate || !scheduledTime) {
+  if (!network || !receivingAddress || !amount || !gasPrice || !scheduledDate || !scheduledTime) {
     alert('Please fill out all fields.');
     return;
   }
 
   chrome.storage.local.set({
-    network, contractAddress, hexData, gasPrice, scheduledDate, scheduledTime
+    network, receivingAddress, amount, gasPrice, scheduledDate, scheduledTime
   }, () => {
     alert('Transaction data saved successfully.');
   });
@@ -101,7 +101,7 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
     return;
   }
 
-  chrome.storage.local.get(['network', 'contractAddress', 'hexData', 'gasPrice', 'scheduledDate', 'scheduledTime'], async (data) => {
+  chrome.storage.local.get(['network', 'receivingAddress', 'amount', 'gasPrice', 'scheduledDate', 'scheduledTime'], async (data) => {
     const scheduledDateTime = new Date(`${data.scheduledDate}T${data.scheduledTime}`).getTime();
     const now = new Date().getTime();
     const delay = scheduledDateTime - now;
@@ -131,10 +131,10 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
           const nonce = await web3.eth.getTransactionCount(wallet.address, 'latest');
       
           const transaction = {
-            to: data.contractAddress,
-            data: data.hexData,
+            to: data.receivingAddress,
+            value: web3.utils.toWei(data.amount, 'ether'),
             gasPrice: web3.utils.toWei(data.gasPrice, 'gwei'),
-            gasLimit: 500000,
+            gasLimit: 21000,
             from: wallet.address,
             nonce: nonce, 
           };
@@ -153,8 +153,6 @@ document.getElementById('sendTransaction').addEventListener('click', async () =>
           
         } catch (error) {
           statusPopup.postMessage({ action: 'transactionError', error: error.message }, '*');
-          
-    
           document.getElementById('privateKey').value = ''; 
         }
       }, delay);
@@ -202,4 +200,3 @@ function getScanUrl(network, txHash) {
   };
   return scanSites[network] || scanSites['mainnet'];
 }
-
