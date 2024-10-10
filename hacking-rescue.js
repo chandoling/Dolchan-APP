@@ -52,7 +52,7 @@ document.getElementById('startButton').addEventListener('click', function () {
   localStorage.setItem('privateKey', privateKey);
 
   // 상태 페이지 열기
-  window.open('hackin-rescue-status.html', '_blank', 'width=500,height=600');
+  window.open('hacking-rescue-status.html', '_blank', 'width=500,height=600');
 });
 
 // RPC URL 선택 함수
