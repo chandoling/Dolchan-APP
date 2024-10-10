@@ -173,7 +173,7 @@ document.getElementById('cancelTransaction').addEventListener('click', () => {
   } else {
     alert('No transaction to cancel');
   }
-});
+})
 
 document.getElementById('mainPageButton').addEventListener('click', () => {
   window.location.href = "index.html"; 

@@ -1,5 +1,29 @@
 let transactionTimeout;
 
+function selectRPC(networkName) {
+  const networks = {
+    sepolia: 'https://1rpc.io/sepolia',
+    mainnet: 'https://rpc.flashbots.net/fast',
+    arbitrum: 'https://arb1.arbitrum.io/rpc',
+    polygon: 'https://polygon-rpc.com',
+    optimism: 'https://mainnet.optimism.io',
+    bsc: 'https://bsc-dataseed.binance.org/',
+  };
+  return networks[networkName] || networks['sepolia'];
+}
+
+function getScanUrl(network, txHash) {
+  const scanSites = {
+    mainnet: `https://etherscan.io/tx/${txHash}`,
+    arbitrum: `https://arbiscan.io/tx/${txHash}`,
+    polygon: `https://polygonscan.com/tx/${txHash}`,
+    optimism: `https://optimistic.etherscan.io/tx/${txHash}`,
+    bsc: `https://bscscan.com/tx/${txHash}`,
+    sepolia: `https://sepolia.etherscan.io/tx/${txHash}`
+  };
+  return scanSites[network] || scanSites['mainnet'];
+}
+
 // Load stored values from Chrome storage when the popup is opened
 window.onload = function() {
   chrome.storage.local.get(['network', 'receivingAddress', 'amount', 'gasPrice', 'scheduledDate', 'scheduledTime'], (data) => {
@@ -176,27 +200,3 @@ document.getElementById('cancelTransaction').addEventListener('click', () => {
 document.getElementById('mainPageButton').addEventListener('click', () => {
   window.location.href = "index.html"; 
 });
-
-function selectRPC(networkName) {
-  const networks = {
-    sepolia: 'https://1rpc.io/sepolia',
-    mainnet: 'https://rpc.flashbots.net/fast',
-    arbitrum: 'https://arb1.arbitrum.io/rpc',
-    polygon: 'https://polygon-rpc.com',
-    optimism: 'https://mainnet.optimism.io',
-    bsc: 'https://bsc-dataseed.binance.org/',
-  };
-  return networks[networkName] || networks['sepolia'];
-}
-
-function getScanUrl(network, txHash) {
-  const scanSites = {
-    mainnet: `https://etherscan.io/tx/${txHash}`,
-    arbitrum: `https://arbiscan.io/tx/${txHash}`,
-    polygon: `https://polygonscan.com/tx/${txHash}`,
-    optimism: `https://optimistic.etherscan.io/tx/${txHash}`,
-    bsc: `https://bscscan.com/tx/${txHash}`,
-    sepolia: `https://sepolia.etherscan.io/tx/${txHash}`
-  };
-  return scanSites[network] || scanSites['mainnet'];
-}

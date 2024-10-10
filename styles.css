@@ -4,19 +4,19 @@ body {
     background-color: #f0f0f0;
     text-align: center;
     margin: 0;
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 2em;
     margin-bottom: 20px;
-}
-
-.intro-text {
+  }
+  
+  .intro-text {
     font-size: 1.5em; 
     margin-bottom: 20px; 
-}
-
-.form-container {
+  }
+  
+  .form-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -26,33 +26,32 @@ h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
+  }
+  
+  .form-group {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     margin-bottom: 15px;
-}
-
-label {
+  }
+  
+  label {
     display: block;
     font-size: 1.5em;
     margin-bottom: 5px;
     line-height: 1.5;
-    text-align: left; /* Left-align the label */
+    text-align: left;
   }
   
-
-input, select {
+  input, select {
     font-size: 1.3em;
     padding: 8px;
     width: 100%;
     box-sizing: border-box;
-}
-
-button {
+  }
+  
+  button {
     display: block;
     width: 100%;
     margin-top: 15px;
@@ -63,48 +62,32 @@ button {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-}
-
-button:hover {
+  }
+  
+  button:hover {
     background-color: #45a049;
-}
-
-small {
-    display: block;
-    margin-top: 20px;
-    font-size: 0.9em;
-}
-
-
-a {
-    color: #269eda;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.footer {
+  }
+  
+  .footer {
     background-color: #f0f0f0;
     padding: 20px 0;
-    margin-top: 20px; /* 위쪽에 20px 마진 추가 */
-}
-
-
-.footer-content {
+    margin-top: 20px;
+  }
+  
+  .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 300px;
     margin: 0 auto; 
-}
-
-.footer-left, .footer-right {
+  }
+  
+  .footer-left, .footer-right {
     display: flex;
     align-items: center;
-}
-
-.footer-left span, .footer-right span {
+  }
+  
+  .footer-left span, .footer-right span {
     margin-left: 5px;
-}
+  }
+  

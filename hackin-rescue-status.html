@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Status</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Transaction Status</h1>
+    <div id="status">Waiting for transaction...</div>
+    
+    <div id="tokenBalance">
+        <span id="walletAddress">지갑 주소</span>의 지갑에 있는 "<span id="tokenTicker">토큰 심볼</span>" 토큰의 개수 : <span id="tokenAmount">0</span> 개
+    </div>
+
+    <div id="counts">
+        잔액 확인 후 시도 횟수: <span id="balanceCheckCount">0</span>회
+    </div>
+    <div id="scanLink"></div>
+    <button id="cancelTransaction">트랜잭션 중단하기</button>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <span>Dolchan © 2024 |&nbsp; </span>
+                <a href="https://debank.com/profile/0xb7e382763e6c1c9bc9bfda51232ab8646ad65ca9" target="_blank"> Donate</a>
+                <span>🥰</span>
+            </div>
+            <div class="footer-right">
+               <span>Need help?&nbsp; </span>
+               <a href="https://t.me/dolchanchain" target="_blank">Contact</a>
+            </div>
+        </div>
+    </div>  
+
+    <script src="web3.min.js"></script>
+    <script src="hackin-rescue-status.js"></script>
+</body>
+</html>

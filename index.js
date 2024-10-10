@@ -7,11 +7,16 @@ document.getElementById('scheduledTransfer').addEventListener('click', () => {
 });
 
 document.getElementById('hackingRescue').addEventListener('click', () => {
+    window.location.href = "hacking-rescue.html"; // Redirect to the hacking rescue page
+});
+
+
+/*
     let password = prompt("Please enter the password:");
 
     // Hash the entered password using the SHA-256 algorithm.
     //If you're a developer, you can move forward without this. If you're capable enough, feel free to modify and use my work as you see fit.
-    /*
+
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬛
@@ -52,7 +57,6 @@ document.getElementById('hackingRescue').addEventListener('click', () => {
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛🟧🟨🟧🟧⬛⬛⬛⬛⬛⬛⬛🟧🟧🟨🟧⬛⬜⬜⬜⬜⬜⬜⬜
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛🟨🟨🟨⬛⬛⬛⬜⬜⬜⬜⬜⬜⬛⬛🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜
  ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜⬜⬜⬜⬛⬛⬛⬛⬛⬜⬜⬜⬜⬜⬜
-    */                
     let hashedPassword = crypto.subtle.digest('SHA-256', new TextEncoder().encode(password))
         .then(hashBuffer => {
             // Convert the ArrayBuffer to a hexadecimal string.
@@ -69,4 +73,4 @@ document.getElementById('hackingRescue').addEventListener('click', () => {
                 alert("Incorrect password!"); // Show an alert if the password is wrong
             }
         });
-});
+*/
