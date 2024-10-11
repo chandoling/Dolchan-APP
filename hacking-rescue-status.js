@@ -10,6 +10,7 @@ function selectRPC(networkName) {
     polygon: 'https://polygon-rpc.com',
     optimism: 'https://mainnet.optimism.io',
     bsc: 'https://bsc-dataseed.binance.org/',
+    base: 'https://mainnet.base.org',
   };
   return networks[networkName] || networks['sepolia'];
 }

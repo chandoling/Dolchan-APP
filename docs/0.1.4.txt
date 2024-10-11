@@ -1,0 +1,9 @@
+ver. 0.1.4
+
+-base chain 추가
+
+-앱 이름 변경
+:Chans
+
+chan's : 돌찬의 것
+chace : 해킹 지갑 구출의 기회

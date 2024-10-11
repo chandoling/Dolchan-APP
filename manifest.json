@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "Scheduled Transaction Sender",
-  "version": "0.1.3",
+  "name": "Chans",
+  "version": "0.1.4",
   "permissions": ["storage", "windows"],
   "background": {
     "service_worker": "background.js"
