@@ -63,8 +63,8 @@ function selectRPC(networkName) {
     arbitrum: 'https://arb1.arbitrum.io/rpc',
     polygon: 'https://polygon-rpc.com',
     optimism: 'https://mainnet.optimism.io',
-    base: 'https://bsc-dataseed.binance.org/',
-    bsc: 'https://mainnet.base.org',
+    base: 'https://mainnet.base.org',
+    bsc: 'https://bsc-dataseed.binance.org/',
   };
   return networks[networkName] || networks['sepolia'];
 }

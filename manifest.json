@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Chan's",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "permissions": ["storage", "windows"],
   "background": {
     "service_worker": "background.js"
@@ -11,8 +11,8 @@
     "default_title": "Scheduled Transaction Sender"
   },
   "icons": {
-    "16": "icons/xnimrodx_copyright.png",
-    "48": "icons/xnimrodx_copyright.png",
-    "128": "icons/xnimrodx_copyright.png"
+    "16": "icons/chan_s.png",
+    "48": "icons/chan_s.png",
+    "128": "icons/chan_s.png"
   }
 }
